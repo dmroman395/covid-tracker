@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: rgba(0,0,0,.075);
+    .search fieldset {
+        border-radius: 60px;
+    }
+    .search {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
