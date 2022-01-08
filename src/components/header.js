@@ -4,13 +4,13 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
+import { selectDarkMode } from '../redux/darkModeSlice';
+import { useSelector } from 'react-redux';
 import '../css/header.css'
 
-
-
-
-
 function Header() {
+    const darkMode = useSelector(selectDarkMode)
+    
     return (
             <div className='header'>
                 <Typography variant='h6'>COVID-19 Tracker</Typography>
@@ -21,9 +21,8 @@ function Header() {
                     type='search' 
                     size='small'
                     sx={{
-                        width: 350,
-                        color: 'success.main',
-                        bgcolor: 'white',
+                        width: 400,
+                        bgcolor: darkMode ? null : 'white',
                         borderRadius: 15
                     }}
                     />
