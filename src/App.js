@@ -28,7 +28,21 @@ function App() {
     },
     typography: {
       fontFamily: 'Quicksand'
-    }
+    },
+    components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'plain' },
+          style: {
+            height: 65,
+            width: 'inherit',
+            borderRadius: 0
+          },
+        },
+      ],
+    },
+  },
   })
 
   return (

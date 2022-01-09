@@ -9,31 +9,27 @@ import Wheel from '@uiw/react-color-wheel';
 import { selectDarkMode } from '../redux/darkModeSlice';
 import { selectTheme, updateTheme } from '../redux/themeSlice'
 import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@mui/styles';
 import '../css/colorPickerContainer.css'
 
+const useStyles = makeStyles({
+    root: {
+        "&:focus": {
+          border: "1px solid black"
+        },
+        "&:hover": {
+            backgroundColor: 'transparent'
+        }
+      },
+  });
+
 const colors = ['#ff1744','#f50057','#d500f9','#651fff','#3d5afe','#2979ff','#00b0ff','#00e5ff','#1de9b6','#00e676','#76ff03','#c6ff00','#ffea00','#ffc400','#ff9100','#ff3d00']
-
-const gridItems = colors.map(color => {
-    return (
-        <Grid item xs={3}>
-            <Paper
-                elevation={0}
-                square
-                sx={{
-                    bgcolor: color,
-                    height: 65,
-
-                }}
-            >
-            </Paper>
-        </Grid>
-    )
-})
 
 function ColorPickerContainer() {
     const dispatch = useDispatch()
     const darkMode = useSelector(selectDarkMode)
     const currentTheme = useSelector(selectTheme)
+    const classes = useStyles()
 
     const [customColor, setCustomColor] = useState(false)
     const [hex, setHex] = useState(currentTheme)
@@ -47,10 +43,40 @@ function ColorPickerContainer() {
         dispatch(updateTheme(hex))
     }
 
+    
+
+    const gridItems = colors.map(color => {
+        function setPresetColor() {
+            setHex(color)
+        }
+
+        return (
+            <Grid item xs={3}
+                sx={{
+                    bgcolor: color,
+                    height: 65
+                }}
+            >
+                <Button
+                    className={classes.root}
+                    variant='plain'
+                    elevation={0}
+                    disableRipple	
+                    square
+                    sx={{
+                        bgcolor: 'transparent',
+                    }}
+                    onClick={setPresetColor}
+                >
+                </Button>
+            </Grid>
+        )
+    })
+
     return (
         <Card
             sx={{
-                minWidth: 300,
+                width: 285,
                 bgcolor: darkMode ? '#424242' : '#E7EBF0'  
             }}
         >
