@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAC;EACX,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;EAC9B,aAAa,EAAE,IAAI;CACtB",
+    "sources": [
+        "colorPickerContainer.scss"
+    ],
+    "names": [],
+    "file": "colorPickerContainer.css"
+}
