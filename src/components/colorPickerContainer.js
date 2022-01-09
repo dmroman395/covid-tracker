@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Wheel from '@uiw/react-color-wheel';
 import { selectDarkMode } from '../redux/darkModeSlice';
-import { selectTheme, updateTheme } from '../redux/themeSlice'
+import { selectTheme, updateTheme, updateSelecting } from '../redux/themeSlice'
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import '../css/colorPickerContainer.css'
@@ -43,7 +43,9 @@ function ColorPickerContainer() {
         dispatch(updateTheme(hex))
     }
 
-    
+    function handleSelecting() {
+        dispatch(updateSelecting())
+    }
 
     const gridItems = colors.map(color => {
         function setPresetColor() {
@@ -112,6 +114,7 @@ function ColorPickerContainer() {
                     sx={{
                         width: '100%'
                     }}
+                    onClick={handleSelecting}
                 >
                     Close
                 </Button>
