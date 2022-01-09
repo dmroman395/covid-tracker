@@ -8,9 +8,9 @@ import ColorPickerOverlay from './components/colorPickerOverlay';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { selectDarkMode } from './redux/darkModeSlice';
 import { selectTheme, selectSelecting } from './redux/themeSlice'
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
-import Globe from './threeJS/globe';
+import GlobeContainer from './threeJS/globe';
 
 function App() {
   const darkMode = useSelector(selectDarkMode)
@@ -59,7 +59,7 @@ function App() {
         <Header/>
         <div className='main-content'>
           <div className='info-container'><Typography align='center'>Placeholder</Typography></div>
-          <div id='globe-container'><Globe/></div>
+          <div className='globe-container'><GlobeContainer theme={customTheme}/></div>
         </div>
       </Box>
     </ThemeProvider>

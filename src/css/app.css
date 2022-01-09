@@ -33,4 +33,9 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
+
+.App .main-content .globe-container {
+  width: 50%;
+  height: 100%;
+}
 /*# sourceMappingURL=app.css.map */
