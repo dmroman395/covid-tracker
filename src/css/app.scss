@@ -4,8 +4,13 @@
     flex-direction: column;
     .main-content {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         flex-grow: 1;
+        .info-container {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+        }
     }
 }

@@ -9,6 +9,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { selectDarkMode } from './redux/darkModeSlice';
 import { selectTheme, selectSelecting } from './redux/themeSlice'
 import { useSelector} from 'react-redux';
+import Typography from '@mui/material/Typography';
+import Globe from './threeJS/globe';
 
 function App() {
   const darkMode = useSelector(selectDarkMode)
@@ -56,7 +58,8 @@ function App() {
       >
         <Header/>
         <div className='main-content'>
-          <div className='globe-container'>Globe</div>
+          <div className='info-container'><Typography align='center'>Placeholder</Typography></div>
+          <div id='globe-container'><Globe/></div>
         </div>
       </Box>
     </ThemeProvider>

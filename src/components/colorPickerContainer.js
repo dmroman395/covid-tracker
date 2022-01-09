@@ -64,7 +64,6 @@ function ColorPickerContainer() {
                     variant='plain'
                     elevation={0}
                     disableRipple	
-                    square
                     sx={{
                         bgcolor: 'transparent',
                     }}
