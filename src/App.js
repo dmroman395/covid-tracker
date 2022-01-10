@@ -59,7 +59,7 @@ function App() {
         <Header/>
         <div className='main-content'>
           <div className='info-container'><Typography align='center'>Placeholder</Typography></div>
-          <div className='globe-container'><GlobeContainer theme={customTheme}/></div>
+          <div className='globe-container'><GlobeContainer/></div>
         </div>
       </Box>
     </ThemeProvider>
