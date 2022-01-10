@@ -12,7 +12,7 @@ function GlobeContainer() {
       <Canvas>
         <Suspense fallback={null}>
           <PerspectiveCamera makeDefault position={[0, 0, -1.25]}>
-            <directionalLight intensity={2} position={[-4,4,0]}/>
+            <directionalLight intensity={1} position={[-4,4,0]}/>
           </PerspectiveCamera>
           <Provider store={store}>
             <Scene/>
