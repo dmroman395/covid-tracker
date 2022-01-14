@@ -10,7 +10,7 @@ import { selectDarkMode } from './redux/darkModeSlice';
 import { selectTheme, selectSelecting } from './redux/themeSlice'
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
-import GlobeContainer from './threeJS/globe';
+import GlobeContainer from './threeJS/globeContainer';
 
 function App() {
   const darkMode = useSelector(selectDarkMode)

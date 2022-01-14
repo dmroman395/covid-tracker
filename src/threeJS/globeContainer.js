@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import Scene from './scene'
@@ -8,7 +8,6 @@ import store from '../redux/store';
 function GlobeContainer() {
 
   return (
-    
       <Canvas>
         <Suspense fallback={null}>
           <PerspectiveCamera makeDefault position={[0, 0, -1.25]}>
@@ -17,7 +16,7 @@ function GlobeContainer() {
           <Provider store={store}>
             <Scene/>
             </Provider>
-          <OrbitControls autoRotate />
+          <OrbitControls enableZoom={!false} enablePan={false} />
         </Suspense>
       </Canvas>
   )
