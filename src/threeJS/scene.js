@@ -1,18 +1,13 @@
 import React, { useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useTexture } from "@react-three/drei"
-import { useThree } from '@react-three/fiber'
 import { useSelector } from 'react-redux'
 import { selectDarkMode } from '../redux/darkModeSlice'
 import { selectTheme } from '../redux/themeSlice'
 
 function Scene() {
-  const {scene, camera, gl, mouse} = useThree()
   const [isDragging, setIsDragging] = useState(false)
   const [isListeningForDrag, setIsListeningForDrag] = useState(false)
-  const globe = scene.children[2]
-  const raycaster = new THREE.Raycaster()
-  const mouse2 = new THREE.Vector2()
   const darkMode = useSelector(selectDarkMode)
   const customTheme = useSelector(selectTheme)
 
@@ -21,6 +16,13 @@ function Scene() {
     bumpMap: 'earth_bumpmap.jpg',
     alphaMap: 'earthspec1k.jpg',
   })
+
+  const globeRotation = {
+    z: (0 * (Math.PI/180)),
+    y: (140 * (Math.PI/180)),
+    x: (0 * (Math.PI/180))
+
+  }
 
   const globeRef = useRef()
   
@@ -34,48 +36,49 @@ function Scene() {
       blending: THREE.AdditiveBlending,
     });
 
-    function handleDrag() {
-      setIsDragging(true)
-    }
+  function handleDrag() {
+    setIsDragging(true)
+  }
 
-    function addDragListnener() {
-      setIsListeningForDrag(true)
-    }
+  function addDragListnener() {
+    setIsListeningForDrag(true)
+  }
+  
+  function removeDragListener() {
+    setIsListeningForDrag(false)
+    setIsDragging(false)
+  }
+
+  function get3DCoordinates(e) {
+    e.stopPropagation()
     
-    function removeDragListener() {
-      setIsListeningForDrag(false)
-      setIsDragging(false)
-    }
+    const {x, y, z} = e.intersections[0].point
 
-    function get3DCoordinates(e) {
-      e.stopPropagation()
-      
-      const {x, y, z} = e.intersections[0].point
-
-      const lat = (Math.asin(z/1)*(180/Math.PI))
-      const lon = (Math.atan2(-y,x)*(180/Math.PI))
-      
-      const coordinates = {
-        lat,
-        lon
-      }
-      console.log(coordinates)
-      return coordinates
-     
+    const lat = (Math.asin(z/1)*(180/Math.PI))
+    const lon = (Math.atan2(-y,x)*(180/Math.PI))
+    
+    const coordinates = {
+      lat,
+      lon
     }
+    console.log(coordinates)
+    return coordinates
+    
+  }
 
   return (
-      <>
-        <ambientLight intensity={.1}/>
-        <sprite scale={[4.5,4.5,1]} >
-              <spriteMaterial {...spriteMaterial} />
-        </sprite>
-        <mesh ref={globeRef} name={'earth'} onClick={isDragging ? null :  e => get3DCoordinates(e)} onPointerMove={isListeningForDrag ? handleDrag : null} onPointerDown={addDragListnener} onPointerUp={removeDragListener}>
-            <sphereGeometry args={[1, 100, 100]}/>
-            <meshPhongMaterial {...props}  bumpScale={.002} color={customTheme} transparent={true} alphaTest={.05} opacity={1} depthWrite={false} depthTest={false}/>
-        </mesh>
+    <>
+      <ambientLight intensity={.1}/>
+      <sprite scale={[4.5,4.5,1]} >
+            <spriteMaterial {...spriteMaterial} />
+      </sprite>
+      <mesh ref={globeRef} name={'earth'} onClick={isDragging ? null :  e => get3DCoordinates(e)} onPointerMove={isListeningForDrag ? handleDrag : null} onPointerDown={addDragListnener} onPointerUp={removeDragListener} rotation={[globeRotation.x, globeRotation.y, globeRotation.z]}>
+          <sphereGeometry args={[1, 100, 100]} />
+          <meshPhongMaterial {...props}  bumpScale={.002} color={customTheme} transparent={true} alphaTest={.05} opacity={1} depthWrite={false} depthTest={false}/>
+      </mesh>
     </>
   )
 }
 
 export default Scene
+
