@@ -61,9 +61,21 @@ function Scene() {
     }
 
     function calcLatLonFromPos(x,y,z) {
+
+      console.log(Math.sign(y) === 1 ? 'y: positive':'y: negative')
+      console.log(Math.sign(z) === 1 ? 'z: positive':'z: negative')
+
       const phi = Math.acos(y)
-      const lat = -(phi/(Math.PI/180)) + 90
-      const lon = ((Math.acos(-(x/Math.sin(phi)))/(Math.PI/180)) - 180)
+      let lat = -(phi/(Math.PI/180)) + 90
+      let lon = ((Math.acos(-(x/Math.sin(phi)))/(Math.PI/180)) - 180)
+
+      if(Math.sign(z) === -1) {
+        console.log('before: ',lon)
+        lon = -lon
+        console.log('after: ',lon)
+      } 
+ 
+      // if(Math.sign(z) === -1) lon = -lon
 
       const coordinates = {
         lat,
