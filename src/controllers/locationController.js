@@ -12,11 +12,26 @@ const options = {
     }
   };
 
-exports.getCountryFromCoordinates = (req, res) => {
+const getCountryFromCoordinates = (req, res) => {
     options.params.latlng = `${req.query.lat},${req.query.lon}`
     axios.request(options).then(response =>  {
-        res.send(response.data.results[0].formatted_address)
+        res.json({country: response.data.results[0].formatted_address})
     }).catch(error => {
         console.error(error);
     });
+}
+
+const getCountryFromProxy = async (lat, lon) => {
+  try {
+    const data = await axios.get(`http://localhost:4000/coordinates?lat=${lat}&lon=${lon}`)
+    console.log(data)
+    return data
+  } catch(err) {
+    console.error(err)
+  };
+}
+
+module.exports = {
+  getCountryFromCoordinates,
+  getCountryFromProxy
 }

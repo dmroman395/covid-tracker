@@ -1,18 +1,16 @@
 import React, { useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useTexture } from "@react-three/drei"
-import { useThree } from '@react-three/fiber'
 import { useSelector } from 'react-redux'
 import { selectDarkMode } from '../redux/darkModeSlice'
 import { selectTheme } from '../redux/themeSlice'
+const locationController = require('../controllers/locationController')
+
+const { getCountryFromProxy } = locationController
 
 function Scene() {
-  const {scene, camera, gl, mouse} = useThree()
   const [isDragging, setIsDragging] = useState(false)
   const [isListeningForDrag, setIsListeningForDrag] = useState(false)
-  const globe = scene.children[2]
-  const raycaster = new THREE.Raycaster()
-  const mouse2 = new THREE.Vector2()
   const darkMode = useSelector(selectDarkMode)
   const customTheme = useSelector(selectTheme)
 
@@ -69,7 +67,7 @@ function Scene() {
       const {x, y, z} = e.intersections[0].point
       const coords = calcLatLonFromPos(x,y,z)
 
-      console.log(coords)
+      getCountryFromProxy(coords.lat, coords.lon)
     }
 
   return (
