@@ -47,67 +47,29 @@ function Scene() {
       setIsDragging(false)
     }
 
-    function calcPosFromLatLonRad(lat, lon) {
-      const phi = (90-lat)*(Math.PI/180)
-      const theta = (lon+180)*(Math.PI/180)
-      const x = -(Math.sin(phi)*Math.cos(theta))
-
-      const z = (Math.sin(phi)*(Math.sin(theta)))
-
-
-
-      const y = Math.cos(phi)
-
-    }
-
     function calcLatLonFromPos(x,y,z) {
-
-      console.log(Math.sign(y) === 1 ? 'y: positive':'y: negative')
-      console.log(Math.sign(z) === 1 ? 'z: positive':'z: negative')
-
       const phi = Math.acos(y)
       let lat = -(phi/(Math.PI/180)) + 90
       let lon = ((Math.acos(-(x/Math.sin(phi)))/(Math.PI/180)) - 180)
 
+      //if pos is on eastern hemisphere, reverse that longitude
       if(Math.sign(z) === -1) {
-        console.log('before: ',lon)
         lon = -lon
-        console.log('after: ',lon)
       } 
- 
-      // if(Math.sign(z) === -1) lon = -lon
-
       const coordinates = {
         lat,
         lon
       }
-
-      //STILL NEED TO ACCOUNT FOR DIFFERENT HEMIUSPEHRES WHE CALCULATING LONGITUDE
-      console.log(coordinates)
-
-      
+      return coordinates
     }
-
-    
 
     function get3DCoordinates(e) {
       e.stopPropagation()
       
       const {x, y, z} = e.intersections[0].point
+      const coords = calcLatLonFromPos(x,y,z)
 
-      // console.log(e.intersections[0].point)
-
-      
-
-
-      const lat = (Math.asin(z/1)*(180/Math.PI))
-      const lon = (Math.atan2(-y,x)*(180/Math.PI))
-      
-      const coordinates = {
-        lat,
-        lon
-      }
-      calcLatLonFromPos(x,y,z)
+      console.log(coords)
     }
 
   return (
